@@ -1,63 +1,170 @@
-[lihat file readmi disini](https://github.com/yuliasagitaputri26/Proyek_FWB/blob/main/YulisSagitaPutri_D0223022_Proyek_FWB.pdf)
+<h1 align="center">WritersHub</h1>
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<hr/>
+
+<h3 align="center">Platfrom Karya Buku Digital: Unggah dan Baca</h3>
+
+---
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://github.com/user-attachments/assets/36f5b8ce-b59d-4c5d-892f-31a6f36b31b5" alt="Logo Unsulbar" width="200"/>
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>Atisa Wahyunianti</strong><br/><br/>
+  <strong>D0223328</strong><br/><br/>
+  <strong>Framework Web Based</strong><br/><br/>
+  <strong>2025</strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 👥 Role dan Fitur-fiturnya
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin
+Admin adalah peran yang memiliki kontrol penuh atas platform dan bertanggung jawab untuk menjaga kelancaran operasional serta mengelola konten yang ada.
 
-## Learning Laravel
+*Fitur utama:*
+- Login admin
+- Lihat semua buku/cerita 
+- Bisa melihat ulasan
+- Bisa melilhat akun user
+- Menghapus akun pengguna, misalnya jika melanggar aturan
+- Menghapus ulasan yang mengandung kata kasar, spam, atau tidak pantas
+- Menghapus buku yang tidak sesuai aturan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Penulis
+Penulis adalah peran yang memiliki hak untuk mengunggah dan mengelola karya mereka, seperti buku atau cerita yang ingin dibagikan dengan pembaca.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+*Fitur utama:*
+- Login
+- Mengelola Cerita, Penulis dapat mengedit informasi cerita (judul, deskripsi, cover, status).
+- Mengelola Bab: Penulis bisa menambah, mengedit, dan menghapus chapter dalam ceritanyanya.
+- Mengelola Ulasan: Penulis bisa melihat ulasan dari pembaca tentang bukunya.
+- Penulis bisa melihat profil pembaca
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Pembaca
+Pembaca  adalah  peran  yang  mengonsumsi  karya  yang  diunggah  oleh  penulis  dan memberikan interaksi balik berupa ulasan, rating, dan preferensi bacaan mereka.
 
-## Laravel Sponsors
+*Fitur utama:*
+- Login
+- Membaca  Buku:  Pembaca  dapat  membaca  buku  yang  telah  dipublikasikan, berpindah antar bab, dan melanjutkan bacaan mereka.
+- Memberikan Ulasan: Pembaca dapat memberikan ulasan dan rating untuk buku yang sudah dibaca.
+- Menyimpan buku: Pembaca dapat menyimpan buku ke bookmark untuk dibaca di kemudian hari
+- Pembaca bisa melihat profil penulis
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🗄 Tabel-Tabel Database
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+### 1. users
 
-## Contributing
+| Nama field      | Tipe data                        | Keterangan                                      |
+|------------------|----------------------------------|--------------------------------------------------|
+| user_id         | BigIncrements                    | ID unik pengguna (Primary Key, auto)           |
+| username        | String                           | Nama pengguna yang digunakan untuk login        |
+| email           | String                           | Alamat email pengguna, unik                     |
+| password        | String                           | Kata sandi terenkripsi untuk login              |
+| role            | Enum('admin', 'penulis', 'pembaca') | Menentukan hak akses                           |
+| created_at      | Timestamps                       | Tanggal dan waktu akun dibuat                  |
+| updated_at      | Timestamps                       | Tanggal dan waktu akun terakhir diperbarui     |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+### 2. Tabel books
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Nama field    | Tipe data   | Keterangan                              |
+|---------------|-------------|------------------------------------------|
+| book_id       | BigIncrements | ID unik buku (Primary Key, auto)       |
+| user_id       | foreignId   | ID penulis (foreign key dari users)   |
+| title         | String      | Judul buku yang ditampilkan kepada pembaca                         |
+| description   | String      | Deskripsi singkat isi buku              |
+| cover_image   | String      | Lokasi gambar sampul (URL atau path)    |
+| status        | Enum        | Status buku: ‘terbit’ untuk publik, ‘draft’ untuk pribadi/masih ditulis         |
+| created_at    | Timestamps  | Tanggal dan waktu akun dibuat           |
+| updated_at    | Timestamps  | Tanggal dan waktu akun diperbarui       |
 
-## Security Vulnerabilities
+### 3. Tabel chapters
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Nama field      | Tipe data   | Keterangan                              |
+|------------------|-------------|------------------------------------------|
+| chapter_id      | BigIncrements | ID unik untuk tiap bab (Primary Key)   |
+| book_id         | foreignId   | ID buku (foreign key ke books)       |
+| title           | String      | Judul bab                               |
+| content         | String      | Isi cerita dari bab tersebut           |
+| chapter_number  | Int         | Nomor urutan bab (contoh: 1, 2, 3...)   |
+| created_at      | Timestamps  | Tanggal dibuat                          |
+| updated_at      | Timestamps  | Tanggal diperbarui                      |
 
-## License
+### 4. Tabel reviews
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Nama field    | Tipe data   | Keterangan                                   |
+|---------------|-------------|-----------------------------------------------|
+| review_id     | BigIncrements | ID unik untuk ulasan (Primary Key, auto)  |
+| book_id       | foreignId   | ID buku yang diulas                         |
+| user_id       | foreignId   | ID pembaca yang memberi ulasan              |
+| review_text   | String      | Isi teks ulasan dari pembaca                |
+| created_at    | Timestamps  | Tanggal dibuat                              |
+| updated_at    | Timestamps  | Tanggal diperbarui                          |
+
+### 5. Tabel bookmarks
+
+| Nama field    | Tipe data   | Keterangan                                  |
+|---------------|-------------|----------------------------------------------|
+| bookmark_id   | BigIncrements | ID unik untuk tiap bookmark (Primary Key) |
+| book_id       | foreignId   | ID buku yang disimpan                      |
+| user_id       | foreignId   | ID pembaca yang menyimpan buku             |
+| created_at    | Timestamps  | Tanggal dibuat                             |
+| updated_at    | Timestamps  | Tanggal diperbarui                         |
+
+### 6. Tabel genres
+
+| Field      | Tipe Data     | Keterangan                                 |
+|------------|---------------|--------------------------------------------|
+| id         | BigIncrements | ID unik genre (Primary Key, auto increment)|
+| name       | String        | Nama genre, bersifat unik                  |
+| created_at | Timestamps    | Tanggal dan waktu genre dibuat             |
+| updated_at | Timestamps    | Tanggal dan waktu genre diperbarui         |
+
+### 7. Tabel profil
+
+| Field      | Tipe Data     | Keterangan                                                                  |
+|------------|---------------|-----------------------------------------------------------------------------|
+| id         | BigIncrements | ID unik profil (Primary Key, auto increment)                               |
+| user_id    | ForeignId     | ID pengguna (relasi ke tabel users, unik, onDelete: cascade)           |
+| name       | String        | Nama lengkap pengguna                                                       |
+| bio        | Text          | Deskripsi atau biografi pengguna (boleh kosong / nullable)                 |
+| social_media_links      | Text          | Kolom ini digunakan untuk menyimpan tautan (boleh kosong / nullable)                 |
+| created_at | Timestamps    | Tanggal dan waktu profil dibuat                                            |
+| updated_at | Timestamps    | Tanggal dan waktu profil diperbarui                                        |
+
+### 8. Tabel book_genre
+
+| Field     | Tipe Data     | Keterangan                                                            |
+|-----------|---------------|------------------------------------------------------------------------|
+| id        | BigIncrements | ID unik (Primary Key, auto increment)                                 |
+| book_id   | ForeignId     | ID buku (relasi ke tabel books, onDelete: cascade)                |
+| genre_id  | ForeignId     | ID genre (relasi ke tabel genres, onDelete: cascade)              |
+
+
+
+---
+
+## 🔗 Relasi Antar Tabel
+
+| *Tabel 1* | *Tabel 2* | *Jenis Relasi* | *Penjelasan*                                                                       |
+| ----------- | ----------- | ---------------- | ------------------------------------------------------------------------------------ |
+| users       | books       | One-to-Many      | Satu user (penulis) bisa menulis banyak buku, satu buku hanya dimiliki satu user.    |
+| books       | users       | Many-to-One      | Banyak buku bisa dimiliki oleh satu user (penulis).                                 |
+| books       | chapters    | One-to-Many      | Satu buku memiliki banyak bab (chapter), satu chapter hanya milik satu buku.         |
+| chapters    | books       | Many-to-One      | Banyak chapter (bab) berhubungan dengan satu buku.                                  |
+| users       | reviews     | One-to-Many      | Satu user bisa menulis banyak ulasan, satu ulasan hanya ditulis satu user.           |
+| reviews     | users       | Many-to-One      | Banyak ulasan bisa ditulis oleh satu user.                                           |
+| books       | reviews     | One-to-Many      | Satu buku bisa memiliki banyak ulasan, satu ulasan hanya untuk satu buku.            |
+| reviews     | books       | Many-to-One      | Banyak ulasan berhubungan dengan satu buku.                                          |
+| users       | bookmarks   | One-to-Many      | Satu user bisa menyimpan banyak bookmark, satu bookmark hanya milik satu user.       |
+| bookmarks   | users       | Many-to-One      | Banyak bookmark bisa dimiliki oleh satu user.                                        |
+| books       | bookmarks   | One-to-Many      | Satu buku bisa dibookmark oleh banyak user, satu bookmark hanya untuk satu buku.     |
+| bookmarks   | books       | Many-to-One      | Banyak bookmark berhubungan dengan satu buku.                                        |
+| books       | genres      | Many-to-Many     | Satu buku bisa memiliki banyak genre, dan satu genre bisa dimiliki oleh banyak buku. |
+| genres      | books       | Many-to-Many     | Banyak genre bisa dimiliki oleh banyak buku.                                         |
+| users       | profiles    | One-to-One       | Satu user hanya memiliki satu profil, dan satu profil hanya milik satu user.        |
