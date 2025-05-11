@@ -18,39 +18,29 @@
 ## 👥 Role dan Fitur-fiturnya
 
 ### Admin
-a.	Menghapus akun pengguna jika ditemukan pelanggaran
-b.	Melihat daftar layanan laundry
-c.	Melihat laporan transaksi
-d.	Melihat daftar semua pengguna (customer dan petugas)
-e.	Admin bisa melihat profil user
 *Fitur utama:*
-- Login admin
-- Lihat semua buku/cerita 
-- Bisa melihat ulasan
-- Bisa melilhat akun user
-- Menghapus akun pengguna, misalnya jika melanggar aturan
-- Menghapus ulasan yang mengandung kata kasar, spam, atau tidak pantas
-- Menghapus buku yang tidak sesuai aturan
+a. Menghapus akun pengguna jika ditemukan pelanggaran
+b. Melihat daftar layanan laundry
+c. Melihat laporan transaksi
+d. Melihat daftar semua pengguna (customer dan petugas)
+e. Admin bisa melihat profil user
 
-### Penulis
-Penulis adalah peran yang memiliki hak untuk mengunggah dan mengelola karya mereka, seperti buku atau cerita yang ingin dibagikan dengan pembaca.
+### Petugas
 
 *Fitur utama:*
-- Login
-- Mengelola Cerita, Penulis dapat mengedit informasi cerita (judul, deskripsi, cover, status).
-- Mengelola Bab: Penulis bisa menambah, mengedit, dan menghapus chapter dalam ceritanyanya.
-- Mengelola Ulasan: Penulis bisa melihat ulasan dari pembaca tentang bukunya.
-- Penulis bisa melihat profil pembaca
+a.	Mengelola status pesanan laundry, seperti Mengubah status pesanan (Dikemas, Dalam proses, Dikirim, Selesai)
+b.	Melakukan update status transaksi, contohnya (Pembayaran berhasil dan menandai transaksi lunas)
+c.	Menambah Layanan baru
+d.	Petugas bisa melihat profil custumer 
 
-### Pembaca
-Pembaca  adalah  peran  yang  mengonsumsi  karya  yang  diunggah  oleh  penulis  dan memberikan interaksi balik berupa ulasan, rating, dan preferensi bacaan mereka.
+### Customer
 
 *Fitur utama:*
-- Login
-- Membaca  Buku:  Pembaca  dapat  membaca  buku  yang  telah  dipublikasikan, berpindah antar bab, dan melanjutkan bacaan mereka.
-- Memberikan Ulasan: Pembaca dapat memberikan ulasan dan rating untuk buku yang sudah dibaca.
-- Menyimpan buku: Pembaca dapat menyimpan buku ke bookmark untuk dibaca di kemudian hari
-- Pembaca bisa melihat profil penulis
+a.	Melakukan pemesanan layanan laundry: Memilih layanan (contoh: Cuci Kering, Kiloan, Setrika). Menentukan alamat penjemputan/pengantaran. Mengisi catatan tambahan (misalnya: "pakai pelembut").
+b.	Melihat status pesanan Menunggu (Dijemput, Dikemas, Dalam Proses, Dikirim, Selesai)
+c.	Melihat riwayat transaksi dan status pembayaran 
+d.	Mengatur profil akun
+e.	Customer bisa melihat profil petugas
 
 ---
 
@@ -58,91 +48,89 @@ Pembaca  adalah  peran  yang  mengonsumsi  karya  yang  diunggah  oleh  penulis 
 
 ### 1. users
 
-| Nama field      | Tipe data                        | Keterangan                                      |
-|------------------|----------------------------------|--------------------------------------------------|
-| user_id         | BigIncrements                    | ID unik pengguna (Primary Key, auto)           |
-| username        | String                           | Nama pengguna yang digunakan untuk login        |
-| email           | String                           | Alamat email pengguna, unik                     |
-| password        | String                           | Kata sandi terenkripsi untuk login              |
-| role            | Enum('admin', 'penulis', 'pembaca') | Menentukan hak akses                           |
-| created_at      | Timestamps                       | Tanggal dan waktu akun dibuat                  |
-| updated_at      | Timestamps                       | Tanggal dan waktu akun terakhir diperbarui     |
+| Nama Field  | Tipe Data     | Keterangan                        |
+| ----------- | ------------- | --------------------------------- |
+| id          | bigIncrements | Primary Key                       |
+| name        | string        | Nama pengguna                     |
+| email       | string        | Email unik                        |
+| password    | string        | Password terenkripsi              |
+| role        | enum          | ['admin', 'petugas', 'customer'] |
+| created_at | timestamps    | Waktu dibuat                      |
+| updated_at | timestamps    | Waktu diupdate                    |
+
+### 2. Tabel services
+
+| Nama Field  | Tipe Data     | Keterangan                                    |
+| ----------- | ------------- | --------------------------------------------- |
+| id          | bigIncrements | ID unik untuk layanan (Primary Key, auto)     |
+| name        | string        | Nama layanan laundry (misal: Cuci Kering)     |
+| description | text          | Deskripsi layanan                             |
+| price       | decimal(10,2) | Harga layanan dengan 2 angka di belakang koma |
+| tersedia    | integer       | Jumlah stok layanan yang tersedia             |
+| created_at | timestamps    | Waktu dibuat                                  |
+| updated_at | timestamps    | Waktu diupdate                                |
 
 
-### 2. Tabel books
+### 3. Tabel  Orders
 
-| Nama field    | Tipe data   | Keterangan                              |
-|---------------|-------------|------------------------------------------|
-| book_id       | BigIncrements | ID unik buku (Primary Key, auto)       |
-| user_id       | foreignId   | ID penulis (foreign key dari users)   |
-| title         | String      | Judul buku yang ditampilkan kepada pembaca                         |
-| description   | String      | Deskripsi singkat isi buku              |
-| cover_image   | String      | Lokasi gambar sampul (URL atau path)    |
-| status        | Enum        | Status buku: ‘terbit’ untuk publik, ‘draft’ untuk pribadi/masih ditulis         |
-| created_at    | Timestamps  | Tanggal dan waktu akun dibuat           |
-| updated_at    | Timestamps  | Tanggal dan waktu akun diperbarui       |
+| Nama Field   | Tipe Data     | Keterangan                                          |
+| ------------ | ------------- | --------------------------------------------------- |
+| id           | bigIncrements | ID unik untuk layanan (Primary Key, auto)           |
+| user_id     | foreignId     | ID pengguna (relasi dengan tabel pengguna)          |
+| order_date  | date          | Tanggal pemesanan layanan                           |
+| total_price | decimal(10,2) | Harga total layanan dengan 2 angka di belakang koma |
+| status       | string        | Status pemesanan, default = "Menunggu Konfirmasi"   |
+| created_at  | timestamps    | Waktu dibuat                                        |
+| updated_at  | timestamps    | Waktu diupdate                                      |
 
-### 3. Tabel chapters
+### 4. Tabel order_service
 
-| Nama field      | Tipe data   | Keterangan                              |
-|------------------|-------------|------------------------------------------|
-| chapter_id      | BigIncrements | ID unik untuk tiap bab (Primary Key)   |
-| book_id         | foreignId   | ID buku (foreign key ke books)       |
-| title           | String      | Judul bab                               |
-| content         | String      | Isi cerita dari bab tersebut           |
-| chapter_number  | Int         | Nomor urutan bab (contoh: 1, 2, 3...)   |
-| created_at      | Timestamps  | Tanggal dibuat                          |
-| updated_at      | Timestamps  | Tanggal diperbarui                      |
+| Nama Field  | Tipe Data     | Keterangan                                         |
+| ----------- | ------------- | -------------------------------------------------- |
+| id          | bigIncrements | ID unik untuk relasi layanan-pesanan (Primary Key) |
+| order_id   | foreignId     | Menghubungkan ke tabel orders                      |
+| service_id | foreignId     | Menghubungkan ke tabel services                    |
+| quantity    | integer       | Jumlah layanan yang dipesan                        |
+| subtotal    | decimal(10,2) | Total harga (harga layanan \* quantity)            |
+| created_at | timestamps    | Waktu dibuat                                       |
+| updated_at | timestamps    | Waktu diupdate                                     |
 
-### 4. Tabel reviews
 
-| Nama field    | Tipe data   | Keterangan                                   |
-|---------------|-------------|-----------------------------------------------|
-| review_id     | BigIncrements | ID unik untuk ulasan (Primary Key, auto)  |
-| book_id       | foreignId   | ID buku yang diulas                         |
-| user_id       | foreignId   | ID pembaca yang memberi ulasan              |
-| review_text   | String      | Isi teks ulasan dari pembaca                |
-| created_at    | Timestamps  | Tanggal dibuat                              |
-| updated_at    | Timestamps  | Tanggal diperbarui                          |
+### 5. Tabel transactions
 
-### 5. Tabel bookmarks
+| Nama Field        | Tipe Data     | Keterangan                                    |
+| ----------------- | ------------- | --------------------------------------------- |
+| id                | bigIncrements | Primary Key                                   |
+| order_id         | foreignId     | Relasi ke tabel orders                        |
+| payment_method   | string        | Metode pembayaran, default = 'Cash'           |
+| amount_paid      | decimal(10,2) | Jumlah uang yang dibayar                      |
+| transaction_date | timestamp     | Waktu transaksi (otomatis diisi dengan now()) |
+| created_at       | timestamps    | Waktu dibuat                                  |
+| updated_at       | timestamps    | Waktu diupdate                                |
 
-| Nama field    | Tipe data   | Keterangan                                  |
-|---------------|-------------|----------------------------------------------|
-| bookmark_id   | BigIncrements | ID unik untuk tiap bookmark (Primary Key) |
-| book_id       | foreignId   | ID buku yang disimpan                      |
-| user_id       | foreignId   | ID pembaca yang menyimpan buku             |
-| created_at    | Timestamps  | Tanggal dibuat                             |
-| updated_at    | Timestamps  | Tanggal diperbarui                         |
 
-### 6. Tabel genres
+### 6. Tabel order_status
 
-| Field      | Tipe Data     | Keterangan                                 |
-|------------|---------------|--------------------------------------------|
-| id         | BigIncrements | ID unik genre (Primary Key, auto increment)|
-| name       | String        | Nama genre, bersifat unik                  |
-| created_at | Timestamps    | Tanggal dan waktu genre dibuat             |
-| updated_at | Timestamps    | Tanggal dan waktu genre diperbarui         |
+| Nama Field  | Tipe Data     | Keterangan                                                   |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| id          | bigIncrements | Primary Key                                                  |
+| order\_id   | foreignId     | Relasi ke tabel orders, menghubungkan status ke pesanan      |
+| status      | string        | Menyimpan status pesanan (contoh: Dipesan, Dikemas, Dikirim) |
+| created\_at | timestamps    | Waktu dibuat                                                 |
+| updated\_at | timestamps    | Waktu diupdate                                               |
+
 
 ### 7. Tabel profil
 
-| Field      | Tipe Data     | Keterangan                                                                  |
-|------------|---------------|-----------------------------------------------------------------------------|
-| id         | BigIncrements | ID unik profil (Primary Key, auto increment)                               |
-| user_id    | ForeignId     | ID pengguna (relasi ke tabel users, unik, onDelete: cascade)           |
-| name       | String        | Nama lengkap pengguna                                                       |
-| bio        | Text          | Deskripsi atau biografi pengguna (boleh kosong / nullable)                 |
-| social_media_links      | Text          | Kolom ini digunakan untuk menyimpan tautan (boleh kosong / nullable)                 |
-| created_at | Timestamps    | Tanggal dan waktu profil dibuat                                            |
-| updated_at | Timestamps    | Tanggal dan waktu profil diperbarui                                        |
-
-### 8. Tabel book_genre
-
-| Field     | Tipe Data     | Keterangan                                                            |
-|-----------|---------------|------------------------------------------------------------------------|
-| id        | BigIncrements | ID unik (Primary Key, auto increment)                                 |
-| book_id   | ForeignId     | ID buku (relasi ke tabel books, onDelete: cascade)                |
-| genre_id  | ForeignId     | ID genre (relasi ke tabel genres, onDelete: cascade)              |
+| Nama Field        | Tipe Data       | Keterangan                              |
+| ----------------- | --------------- | --------------------------------------- |
+| id                | bigIncrements   | Primary Key                             |
+| user_id           | foreignId       | Relasi ke tabel users, cascade delete   |
+| address           | string          | Alamat pengguna, nullable               |
+| phone_number      | string          | Nomor telepon pengguna, nullable        |
+| profile_picture   | string          | URL foto profil pengguna, nullable      |
+| created_at        | timestamps      | Waktu dibuat                            |
+| updated_at        | timestamps      | Waktu diupdate                          |
 
 
 
@@ -150,20 +138,16 @@ Pembaca  adalah  peran  yang  mengonsumsi  karya  yang  diunggah  oleh  penulis 
 
 ## 🔗 Relasi Antar Tabel
 
-| *Tabel 1* | *Tabel 2* | *Jenis Relasi* | *Penjelasan*                                                                       |
-| ----------- | ----------- | ---------------- | ------------------------------------------------------------------------------------ |
-| users       | books       | One-to-Many      | Satu user (penulis) bisa menulis banyak buku, satu buku hanya dimiliki satu user.    |
-| books       | users       | Many-to-One      | Banyak buku bisa dimiliki oleh satu user (penulis).                                 |
-| books       | chapters    | One-to-Many      | Satu buku memiliki banyak bab (chapter), satu chapter hanya milik satu buku.         |
-| chapters    | books       | Many-to-One      | Banyak chapter (bab) berhubungan dengan satu buku.                                  |
-| users       | reviews     | One-to-Many      | Satu user bisa menulis banyak ulasan, satu ulasan hanya ditulis satu user.           |
-| reviews     | users       | Many-to-One      | Banyak ulasan bisa ditulis oleh satu user.                                           |
-| books       | reviews     | One-to-Many      | Satu buku bisa memiliki banyak ulasan, satu ulasan hanya untuk satu buku.            |
-| reviews     | books       | Many-to-One      | Banyak ulasan berhubungan dengan satu buku.                                          |
-| users       | bookmarks   | One-to-Many      | Satu user bisa menyimpan banyak bookmark, satu bookmark hanya milik satu user.       |
-| bookmarks   | users       | Many-to-One      | Banyak bookmark bisa dimiliki oleh satu user.                                        |
-| books       | bookmarks   | One-to-Many      | Satu buku bisa dibookmark oleh banyak user, satu bookmark hanya untuk satu buku.     |
-| bookmarks   | books       | Many-to-One      | Banyak bookmark berhubungan dengan satu buku.                                        |
-| books       | genres      | Many-to-Many     | Satu buku bisa memiliki banyak genre, dan satu genre bisa dimiliki oleh banyak buku. |
-| genres      | books       | Many-to-Many     | Banyak genre bisa dimiliki oleh banyak buku.                                         |
-| users       | profiles    | One-to-One       | Satu user hanya memiliki satu profil, dan satu profil hanya milik satu user.        |
+| Tabel 1         | Tabel 2         | Jenis Relasi      | Penjelasan                                                                                                          |
+|-----------------|-----------------|-------------------|--------------------------------------------------------------------------------------------------------------------|
+| users           | orders          | One to Many       | Setiap user (pelanggan) bisa memiliki banyak orders (pesanan).                                                     |
+|                 |                 |                   | Dan setiap order (pesanan) hanya terkait dengan satu user.                                                         |
+| orders          | order_service  | One to Many       | Setiap order bisa memiliki banyak order_service yang menyimpan layanan yang dipesan.                                |
+|                 |                 |                   | Dan setiap order_service hanya terkait dengan satu order.                                                           
+| services        | order_service | One to Many         | Setiap service (layanan) bisa ada dalam banyak order_service (melalui banyak pesanan).                             |
+|                 |                 |                   | Dan setiap order_service menyimpan rincian tentang layanan yang dipesan dalam sebuah pesanan.                      |
+| orders          | transactions    | One to One / One to Many | Setiap order memiliki satu transaction (pembayaran) terkait.                                                 
+|                 |                 |                   | Namun, satu order bisa punya lebih dari satu transaksi jika sistem mendukung beberapa pembayaran.                  |
+| orders          | order_status    | One to Many       | Setiap order bisa memiliki banyak status perubahan dalam tabel order_status.                                       |
+|                 |                 |                   | Dan setiap status perubahan hanya terkait dengan satu order.                                                      |
+
