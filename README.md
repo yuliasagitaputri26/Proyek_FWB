@@ -1,18 +1,14 @@
-<h1 align="center">WritersHub</h1>
+<h1 align="center">Sistem Pemesana Jasa Laundry</h1>
 
 <hr/>
-
-<h3 align="center">Platfrom Karya Buku Digital: Unggah dan Baca</h3>
-
----
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/36f5b8ce-b59d-4c5d-892f-31a6f36b31b5" alt="Logo Unsulbar" width="200"/>
 </p>
 
 <p align="center">
-  <strong>Atisa Wahyunianti</strong><br/><br/>
-  <strong>D0223328</strong><br/><br/>
+  <strong>Yulia Sagita Putri</strong><br/><br/>
+  <strong>D0223022</strong><br/><br/>
   <strong>Framework Web Based</strong><br/><br/>
   <strong>2025</strong>
 </p>
@@ -22,8 +18,11 @@
 ## 👥 Role dan Fitur-fiturnya
 
 ### Admin
-Admin adalah peran yang memiliki kontrol penuh atas platform dan bertanggung jawab untuk menjaga kelancaran operasional serta mengelola konten yang ada.
-
+a.	Menghapus akun pengguna jika ditemukan pelanggaran
+b.	Melihat daftar layanan laundry
+c.	Melihat laporan transaksi
+d.	Melihat daftar semua pengguna (customer dan petugas)
+e.	Admin bisa melihat profil user
 *Fitur utama:*
 - Login admin
 - Lihat semua buku/cerita 
