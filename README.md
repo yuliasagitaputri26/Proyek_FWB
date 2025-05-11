@@ -1,61 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">Sistem Pemesana Jasa Laundry</h1>
+
+<hr/>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://github.com/user-attachments/assets/36f5b8ce-b59d-4c5d-892f-31a6f36b31b5" alt="Logo Unsulbar" width="200"/>
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>Yulia Sagita Putri</strong><br/><br/>
+  <strong>D0223022</strong><br/><br/>
+  <strong>Framework Web Based</strong><br/><br/>
+  <strong>2025</strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 👥 Role dan Fitur-fiturnya
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin
+*Fitur utama:*
+a. Menghapus akun pengguna jika ditemukan pelanggaran
+b. Melihat daftar layanan laundry
+c. Melihat laporan transaksi
+d. Melihat daftar semua pengguna (customer dan petugas)
+e. Admin bisa melihat profil user
 
-## Learning Laravel
+### Petugas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*Fitur utama:*
+a.	Mengelola status pesanan laundry, seperti Mengubah status pesanan (Dikemas, Dalam proses, Dikirim, Selesai)
+b.	Melakukan update status transaksi, contohnya (Pembayaran berhasil dan menandai transaksi lunas)
+c.	Menambah Layanan baru
+d.	Petugas bisa melihat profil custumer 
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Customer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+*Fitur utama:*
+a.	Melakukan pemesanan layanan laundry: Memilih layanan (contoh: Cuci Kering, Kiloan, Setrika). Menentukan alamat penjemputan/pengantaran. Mengisi catatan tambahan (misalnya: "pakai pelembut").
+b.	Melihat status pesanan Menunggu (Dijemput, Dikemas, Dalam Proses, Dikirim, Selesai)
+c.	Melihat riwayat transaksi dan status pembayaran 
+d.	Mengatur profil akun
+e.	Customer bisa melihat profil petugas
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🗄 Tabel-Tabel Database
 
-### Premium Partners
+### 1. users
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+| Nama Field  | Tipe Data     | Keterangan                        |
+| ----------- | ------------- | --------------------------------- |
+| id          | bigIncrements | Primary Key                       |
+| name        | string        | Nama pengguna                     |
+| email       | string        | Email unik                        |
+| password    | string        | Password terenkripsi              |
+| role        | enum          | ['admin', 'petugas', 'customer'] |
+| created_at | timestamps    | Waktu dibuat                      |
+| updated_at | timestamps    | Waktu diupdate                    |
 
-## Contributing
+### 2. Tabel services
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Nama Field  | Tipe Data     | Keterangan                                    |
+| ----------- | ------------- | --------------------------------------------- |
+| id          | bigIncrements | ID unik untuk layanan (Primary Key, auto)     |
+| name        | string        | Nama layanan laundry (misal: Cuci Kering)     |
+| description | text          | Deskripsi layanan                             |
+| price       | decimal(10,2) | Harga layanan dengan 2 angka di belakang koma |
+| tersedia    | integer       | Jumlah stok layanan yang tersedia             |
+| created_at | timestamps    | Waktu dibuat                                  |
+| updated_at | timestamps    | Waktu diupdate                                |
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Tabel  Orders
 
-## Security Vulnerabilities
+| Nama Field   | Tipe Data     | Keterangan                                          |
+| ------------ | ------------- | --------------------------------------------------- |
+| id           | bigIncrements | ID unik untuk layanan (Primary Key, auto)           |
+| user_id     | foreignId     | ID pengguna (relasi dengan tabel pengguna)          |
+| order_date  | date          | Tanggal pemesanan layanan                           |
+| total_price | decimal(10,2) | Harga total layanan dengan 2 angka di belakang koma |
+| status       | string        | Status pemesanan, default = "Menunggu Konfirmasi"   |
+| created_at  | timestamps    | Waktu dibuat                                        |
+| updated_at  | timestamps    | Waktu diupdate                                      |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Tabel order_service
 
-## License
+| Nama Field  | Tipe Data     | Keterangan                                         |
+| ----------- | ------------- | -------------------------------------------------- |
+| id          | bigIncrements | ID unik untuk relasi layanan-pesanan (Primary Key) |
+| order_id   | foreignId     | Menghubungkan ke tabel orders                      |
+| service_id | foreignId     | Menghubungkan ke tabel services                    |
+| quantity    | integer       | Jumlah layanan yang dipesan                        |
+| subtotal    | decimal(10,2) | Total harga (harga layanan \* quantity)            |
+| created_at | timestamps    | Waktu dibuat                                       |
+| updated_at | timestamps    | Waktu diupdate                                     |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+### 5. Tabel transactions
+
+| Nama Field        | Tipe Data     | Keterangan                                    |
+| ----------------- | ------------- | --------------------------------------------- |
+| id                | bigIncrements | Primary Key                                   |
+| order_id         | foreignId     | Relasi ke tabel orders                        |
+| payment_method   | string        | Metode pembayaran, default = 'Cash'           |
+| amount_paid      | decimal(10,2) | Jumlah uang yang dibayar                      |
+| transaction_date | timestamp     | Waktu transaksi (otomatis diisi dengan now()) |
+| created_at       | timestamps    | Waktu dibuat                                  |
+| updated_at       | timestamps    | Waktu diupdate                                |
+
+
+### 6. Tabel order_status
+
+| Nama Field  | Tipe Data     | Keterangan                                                   |
+| ----------- | ------------- | ------------------------------------------------------------ |
+| id          | bigIncrements | Primary Key                                                  |
+| order\_id   | foreignId     | Relasi ke tabel orders, menghubungkan status ke pesanan      |
+| status      | string        | Menyimpan status pesanan (contoh: Dipesan, Dikemas, Dikirim) |
+| created\_at | timestamps    | Waktu dibuat                                                 |
+| updated\_at | timestamps    | Waktu diupdate                                               |
+
+
+### 7. Tabel profil
+
+| Nama Field        | Tipe Data       | Keterangan                              |
+| ----------------- | --------------- | --------------------------------------- |
+| id                | bigIncrements   | Primary Key                             |
+| user_id           | foreignId       | Relasi ke tabel users, cascade delete   |
+| address           | string          | Alamat pengguna, nullable               |
+| phone_number      | string          | Nomor telepon pengguna, nullable        |
+| profile_picture   | string          | URL foto profil pengguna, nullable      |
+| created_at        | timestamps      | Waktu dibuat                            |
+| updated_at        | timestamps      | Waktu diupdate                          |
+
+
+
+---
+
+## 🔗 Relasi Antar Tabel
+
+| Tabel 1         | Tabel 2         | Jenis Relasi      | Penjelasan                                                                                                          |
+|-----------------|-----------------|-------------------|--------------------------------------------------------------------------------------------------------------------|
+| users           | orders          | One to Many       | Setiap user (pelanggan) bisa memiliki banyak orders (pesanan).                                                     |
+|                 |                 |                   | Dan setiap order (pesanan) hanya terkait dengan satu user.                                                         |
+| orders          | order_service  | One to Many       | Setiap order bisa memiliki banyak order_service yang menyimpan layanan yang dipesan.                                |
+|                 |                 |                   | Dan setiap order_service hanya terkait dengan satu order.                                                           
+| services        | order_service | One to Many         | Setiap service (layanan) bisa ada dalam banyak order_service (melalui banyak pesanan).                             |
+|                 |                 |                   | Dan setiap order_service menyimpan rincian tentang layanan yang dipesan dalam sebuah pesanan.                      |
+| orders          | transactions    | One to One / One to Many | Setiap order memiliki satu transaction (pembayaran) terkait.                                                 
+|                 |                 |                   | Namun, satu order bisa punya lebih dari satu transaksi jika sistem mendukung beberapa pembayaran.                  |
+| orders          | order_status    | One to Many       | Setiap order bisa memiliki banyak status perubahan dalam tabel order_status.                                       |
+|                 |                 |                   | Dan setiap status perubahan hanya terkait dengan satu order.                                                      |
+
