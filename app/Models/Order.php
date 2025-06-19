@@ -16,27 +16,33 @@ class Order extends Model
         'status',
     ];
 
-    // Relasi One to Many dengan User
+    // Relasi ke user (pembuat pesanan)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relasi Many to Many dengan Services melalui tabel pivot order_service
+    // Relasi Many to Many ke Service (via pivot)
     public function services()
     {
-        return $this->belongsToMany(Servis::class, 'order_service')
+        return $this->belongsToMany(Service::class, 'order_service')
                     ->withPivot('quantity', 'subtotal')
                     ->withTimestamps();
     }
 
-    // Relasi One to Many dengan OrderStatus
+    // ✅ Relasi One to Many ke OrderService
+    public function orderServices()
+    {
+        return $this->hasMany(OrderService::class);
+    }
+
+    // Relasi ke status pesanan (jika pakai tracking status terpisah)
     public function statuses()
     {
         return $this->hasMany(OrderStatus::class);
     }
 
-    // Relasi One to Many dengan Transactions
+    // Relasi ke transaksi (jika ada pembayaran)
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

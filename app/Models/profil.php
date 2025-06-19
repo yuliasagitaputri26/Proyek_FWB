@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User; // ← Tambahkan ini
 
-class Profile extends Model
+class profil extends Model
 {
     use HasFactory;
-
+    protected $table = 'profiles'; // 👈 TAMBAHKAN INI
     protected $fillable = [
         'user_id',
         'address',
@@ -22,4 +23,3 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 }
- 

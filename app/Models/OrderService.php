@@ -25,8 +25,8 @@ class OrderService extends Model
     }
 
     // Relasi ke model Servis
-    public function services()
+    public function service()
     {
-        return $this->belongsTo(Servis::class);
+        return $this->belongsTo(Service::class);
     }
 }

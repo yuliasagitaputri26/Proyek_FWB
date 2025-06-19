@@ -10,6 +10,38 @@
 
     <title>SB Admin 2 - Dashboard</title>
 
+    <!-- Tambahkan Font Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<!-- Animate CSS for transitions -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- Tambahkan CSS Custom -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9fafa;
+    }
+
+    .card-welcome {
+        border-radius: 16px;
+        background-color: #ffffff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .text-teal {
+        color: #20c997;
+    }
+
+    .welcome-illustration {
+        max-width: 180px;
+        margin-bottom: 20px;
+    }
+
+
+</style>
+
+
+
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,
@@ -21,7 +53,35 @@
 
 <body id="page-top">
 
-    @yield('content')
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+          
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
